@@ -30,9 +30,14 @@ public class PlayerController : MonoBehaviour
         m_rigidbody.AddForce(transform.right * m_movementForce * Input.GetAxis("Horizontal"));
     }
 
+    public void ReturnToLastCheckPoint()
+    {
+        transform.position = CheckPoint.m_lastCheckPoint.GetRespawnPoint().transform.position;
+    }
+
     void OnCollisionEnter2D(Collision2D coll)
     {
-        if (coll.gameObject.tag == "ground")
+        if (coll.gameObject.tag == "Ground")
         {
             m_canJump = true;
         }
