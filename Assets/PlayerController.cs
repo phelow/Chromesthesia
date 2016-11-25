@@ -7,6 +7,12 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D m_rigidbody;
 
     [SerializeField]
+    private AudioSource m_playerAudioSource;
+
+    [SerializeField]
+    private AudioClip m_jumpAudioClip;
+
+    [SerializeField]
     private float m_movementForce;
     [SerializeField]
     private float m_jumpForce;
@@ -25,6 +31,7 @@ public class PlayerController : MonoBehaviour
             m_canJump = false;
             m_rigidbody.AddForce(m_jumpForce * transform.up);
             animator.SetTrigger("jump");
+            m_playerAudioSource.PlayOneShot(m_jumpAudioClip);
         }
 
         m_rigidbody.AddForce(transform.right * m_movementForce * Input.GetAxis("Horizontal"));
