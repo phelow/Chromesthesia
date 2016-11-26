@@ -20,7 +20,7 @@ public class SliderBox : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        SetValueInHeavy(Mathf.Lerp(m_minValue, m_maxValue, Mathf.InverseLerp(m_leftTerminus.transform.position.x, m_rightTerminus.transform.position.x, this.transform.position.x)));
+        SetValueInHeavy(Mathf.Lerp(m_minValue, m_maxValue, Mathf.InverseLerp(m_leftTerminus.transform.position.x - m_leftTerminus.transform.localScale.magnitude, m_rightTerminus.transform.position.x + m_leftTerminus.transform.localScale.magnitude, this.transform.position.x)));
 	}
 
     protected virtual void SetValueInHeavy(float value)
