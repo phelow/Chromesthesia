@@ -18,23 +18,54 @@ public class PlayerController : MonoBehaviour
     private float m_jumpForce;
 
     [SerializeField]
-    private bool m_canJump = true;
+    private float m_initialJumpForce;
+
+    [SerializeField]
+    private bool m_onGround = true;
     
     [SerializeField]
     private Animator animator;
 
+    [SerializeField]
+    private float m_aerialFactor;
+
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetAxis("Vertical") > 0.0f && m_canJump == true)
+        if (Input.GetAxis("Vertical") > 0.0f && m_onGround == true)
         {
-            m_canJump = false;
-            m_rigidbody.AddForce(m_jumpForce * transform.up);
-            animator.SetTrigger("jump");
-            m_playerAudioSource.PlayOneShot(m_jumpAudioClip);
+            m_onGround = false;
+            StartCoroutine(JumpForceRoutine());
+
         }
 
-        m_rigidbody.AddForce(transform.right * m_movementForce * Input.GetAxis("Horizontal"));
+        animator.SetFloat("walkspeed", Mathf.Abs(m_rigidbody.velocity.magnitude));
+
+        if (m_onGround)
+        {
+            m_rigidbody.AddForce(transform.right * m_movementForce * Input.GetAxis("Horizontal"));
+        }
+        else
+        {
+            m_rigidbody.AddForce(transform.right * m_movementForce * Input.GetAxis("Horizontal") * m_aerialFactor);
+
+        }
+    }
+
+    private IEnumerator JumpForceRoutine()
+    {
+        animator.SetTrigger("jump");
+        m_playerAudioSource.PlayOneShot(m_jumpAudioClip);
+        float f = 0.0f;
+        m_rigidbody.AddForce(m_initialJumpForce * transform.up);
+        while (f < .1f)
+        {
+            f += Time.fixedDeltaTime;
+            yield return new WaitForFixedUpdate();
+            m_rigidbody.AddForce(m_jumpForce * transform.up * Time.fixedDeltaTime);
+        }
+
+
     }
 
     public void ReturnToLastCheckPoint()
@@ -46,7 +77,7 @@ public class PlayerController : MonoBehaviour
     {
         if (coll.gameObject.tag == "Ground")
         {
-            m_canJump = true;
+            m_onGround = true;
         }
     }
 }
