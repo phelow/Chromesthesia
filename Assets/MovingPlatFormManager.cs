@@ -7,12 +7,12 @@ public class MovingPlatFormManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        Hv_MovingPlatform_LibWrapper script = GetComponent<Hv_MovingPlatform_LibWrapper>();
+        Hv_MovingPlatform_AudioLib script = GetComponent<Hv_MovingPlatform_AudioLib>();
         script.RegisterSendHook();
         script.FloatReceivedCallback += OnFloatMessage;
     }
 
-    void OnFloatMessage(Hv_MovingPlatform_LibWrapper.FloatMessage message)
+    void OnFloatMessage(Hv_MovingPlatform_AudioLib.FloatMessage message)
     {
         Debug.Log(message.receiverName + ": " + message.value);
         if (message.receiverName == "#unity_metro3_bang")
