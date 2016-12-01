@@ -15,24 +15,11 @@ public class MovingPlatFormManager : MonoBehaviour {
     void OnFloatMessage(Hv_MovingPlatform_AudioLib.FloatMessage message)
     {
         Debug.Log(message.receiverName + ": " + message.value);
-        if (message.receiverName == "#unity_metro3_bang")
+        if (message.receiverName == "#unity_ai")
         {
-            foreach(MovingPlatform mp in m_movingPlatforms)
-            {
-                mp.BleepGrey();
-            }
+
 
         }
-
-        if (message.receiverName == "#unity_metro1_bang")
-        {
-            foreach (MovingPlatform mp in m_movingPlatforms)
-            {
-                mp.GoToNextPosition();
-            }
-        }
-
-
     }
 
     // Update is called once per frame

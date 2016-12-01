@@ -4,6 +4,9 @@ using System.Collections;
 public class EnemyAIMaster : MonoBehaviour {
 
     [SerializeField]
+    private EnemyAI [] m_enemyAIs;
+
+    [SerializeField]
     private Hv_RandomWalk_AudioLib m_aiAudioLib;
     // Use this for initialization
     void Start()
@@ -17,6 +20,32 @@ public class EnemyAIMaster : MonoBehaviour {
     {
         Debug.Log(message.receiverName + ": " + message.value);
 
+        if(message.receiverName == "#unity_ai")
+        {
+            if( message.value < 72)
+            {
+                foreach(EnemyAI ai in m_enemyAIs)
+                {
+                    ai.SetPursue();
+                }
+            }else if (message.value >= 72 && message.value < 84)
+            {
+                foreach (EnemyAI ai in m_enemyAIs)
+                {
+                    ai.SetNeutral();
+                }
+
+            }
+            else if(message.value >= 84)
+            {
+
+                foreach (EnemyAI ai in m_enemyAIs)
+                {
+                    ai.SetEvade();
+                }
+
+            }
+        }
 
     }
 }
