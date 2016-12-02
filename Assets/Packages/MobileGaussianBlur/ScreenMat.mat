@@ -49,4 +49,4 @@ Material:
       second: {r: 1, g: 1, b: 1, a: 1}
     - first:
         name: _Resolution
-      second: {r: 485, g: 303, b: 0, a: 0}
+      second: {r: 476, g: 298, b: 0, a: 0}

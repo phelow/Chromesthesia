@@ -22,13 +22,13 @@ public class EnemyAIMaster : MonoBehaviour {
 
         if(message.receiverName == "#unity_ai")
         {
-            if( message.value < 72)
+            if( message.value < 64)
             {
                 foreach(EnemyAI ai in m_enemyAIs)
                 {
                     ai.SetPursue();
                 }
-            }else if (message.value >= 72 && message.value < 84)
+            }else if (message.value >= 64 && message.value < 78)
             {
                 foreach (EnemyAI ai in m_enemyAIs)
                 {
@@ -36,7 +36,7 @@ public class EnemyAIMaster : MonoBehaviour {
                 }
 
             }
-            else if(message.value >= 84)
+            else if(message.value >= 78)
             {
 
                 foreach (EnemyAI ai in m_enemyAIs)

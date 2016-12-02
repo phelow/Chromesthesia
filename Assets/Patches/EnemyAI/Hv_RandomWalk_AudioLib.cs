@@ -72,39 +72,21 @@ public class Hv_RandomWalk_Editor : Editor {
     }
     GUILayout.EndHorizontal();
     
-    // b
-    GUILayout.BeginHorizontal();
-    float b = _dsp.GetFloatParameter(Hv_RandomWalk_AudioLib.Parameter.B);
-    float newB = EditorGUILayout.Slider("b", b, 0.0f, 100.0f);
-    if (b != newB) {
-      _dsp.SetFloatParameter(Hv_RandomWalk_AudioLib.Parameter.B, newB);
-    }
-    GUILayout.EndHorizontal();
-    
-    // c
-    GUILayout.BeginHorizontal();
-    float c = _dsp.GetFloatParameter(Hv_RandomWalk_AudioLib.Parameter.C);
-    float newC = EditorGUILayout.Slider("c", c, 0.0f, 100.0f);
-    if (c != newC) {
-      _dsp.SetFloatParameter(Hv_RandomWalk_AudioLib.Parameter.C, newC);
-    }
-    GUILayout.EndHorizontal();
-    
-    // e
-    GUILayout.BeginHorizontal();
-    float e = _dsp.GetFloatParameter(Hv_RandomWalk_AudioLib.Parameter.E);
-    float newE = EditorGUILayout.Slider("e", e, 0.0f, 100.0f);
-    if (e != newE) {
-      _dsp.SetFloatParameter(Hv_RandomWalk_AudioLib.Parameter.E, newE);
-    }
-    GUILayout.EndHorizontal();
-    
     // tempo
     GUILayout.BeginHorizontal();
     float tempo = _dsp.GetFloatParameter(Hv_RandomWalk_AudioLib.Parameter.Tempo);
     float newTempo = EditorGUILayout.Slider("tempo", tempo, 100.0f, 10000.0f);
     if (tempo != newTempo) {
       _dsp.SetFloatParameter(Hv_RandomWalk_AudioLib.Parameter.Tempo, newTempo);
+    }
+    GUILayout.EndHorizontal();
+    
+    // unity_state
+    GUILayout.BeginHorizontal();
+    float unity_state = _dsp.GetFloatParameter(Hv_RandomWalk_AudioLib.Parameter.Unity_state);
+    float newUnity_state = EditorGUILayout.Slider("unity_state", unity_state, 0.0f, 4.0f);
+    if (unity_state != newUnity_state) {
+      _dsp.SetFloatParameter(Hv_RandomWalk_AudioLib.Parameter.Unity_state, newUnity_state);
     }
     GUILayout.EndHorizontal();
     EditorGUI.indentLevel--;
@@ -127,10 +109,8 @@ public class Hv_RandomWalk_AudioLib : MonoBehaviour {
   */
   public enum Parameter : uint {
     A = 0x92685F5E,
-    B = 0x86B7B9F4,
-    C = 0x2CF62649,
-    E = 0xB9B6C23E,
     Tempo = 0x26682824,
+    Unity_state = 0xCC3FF9A7,
   }
   
   // Delegate method for receiving float messages from the patch context (thread-safe).
@@ -158,10 +138,8 @@ public class Hv_RandomWalk_AudioLib : MonoBehaviour {
   public delegate void FloatMessageReceived(FloatMessage message);
   public FloatMessageReceived FloatReceivedCallback;
   public float a = 0.0f;
-  public float b = 0.0f;
-  public float c = 0.0f;
-  public float e = 0.0f;
   public float tempo = 100.0f;
+  public float unity_state = 1.0f;
 
   // internal state
   private Hv_RandomWalk_Context _context;
@@ -178,10 +156,8 @@ public class Hv_RandomWalk_AudioLib : MonoBehaviour {
   public float GetFloatParameter(Hv_RandomWalk_AudioLib.Parameter param) {
     switch (param) {
       case Parameter.A: return a;
-      case Parameter.B: return b;
-      case Parameter.C: return c;
-      case Parameter.E: return e;
       case Parameter.Tempo: return tempo;
+      case Parameter.Unity_state: return unity_state;
       default: return 0.0f;
     }
   }
@@ -193,24 +169,14 @@ public class Hv_RandomWalk_AudioLib : MonoBehaviour {
         a = x;
         break;
       }
-      case Parameter.B: {
-        x = Mathf.Clamp(x, 0.0f, 100.0f);
-        b = x;
-        break;
-      }
-      case Parameter.C: {
-        x = Mathf.Clamp(x, 0.0f, 100.0f);
-        c = x;
-        break;
-      }
-      case Parameter.E: {
-        x = Mathf.Clamp(x, 0.0f, 100.0f);
-        e = x;
-        break;
-      }
       case Parameter.Tempo: {
         x = Mathf.Clamp(x, 100.0f, 10000.0f);
         tempo = x;
+        break;
+      }
+      case Parameter.Unity_state: {
+        x = Mathf.Clamp(x, 0.0f, 4.0f);
+        unity_state = x;
         break;
       }
       default: return;
@@ -239,10 +205,8 @@ public class Hv_RandomWalk_AudioLib : MonoBehaviour {
   
   private void Start() {
     _context.SendFloatToReceiver((uint) Parameter.A, a);
-    _context.SendFloatToReceiver((uint) Parameter.B, b);
-    _context.SendFloatToReceiver((uint) Parameter.C, c);
-    _context.SendFloatToReceiver((uint) Parameter.E, e);
     _context.SendFloatToReceiver((uint) Parameter.Tempo, tempo);
+    _context.SendFloatToReceiver((uint) Parameter.Unity_state, unity_state);
   }
   
   private void Update() {

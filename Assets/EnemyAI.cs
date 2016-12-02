@@ -24,12 +24,16 @@ public class EnemyAI : MonoBehaviour
 
     public void SetPursue()
     {
-        m_rigidbody.AddForce((m_player.transform.position - transform.position).normalized * m_force);
+        Vector3 ray = (m_player.transform.position - transform.position).normalized * m_force;
+        m_rigidbody.AddForce(transform.position);
+        Debug.DrawRay(transform.position, ray, Color.red, 1.0f);
     }
 
     public void SetEvade()
     {
-        m_rigidbody.AddForce(-(m_player.transform.position - transform.position).normalized * m_force * m_evadeRatio);
+        Vector3 ray = -(m_player.transform.position-transform.position).normalized * m_force;
+        m_rigidbody.AddForce(transform.position);
+        Debug.DrawRay(transform.position, ray, Color.blue, 1.0f);
 
     }
 
@@ -40,6 +44,9 @@ public class EnemyAI : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D coll)
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        if (coll.transform.tag == "Player")
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 }
