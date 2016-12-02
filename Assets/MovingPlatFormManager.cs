@@ -15,10 +15,12 @@ public class MovingPlatFormManager : MonoBehaviour {
     void OnFloatMessage(Hv_MovingPlatform_AudioLib.FloatMessage message)
     {
         Debug.Log(message.receiverName + ": " + message.value);
-        if (message.receiverName == "#unity_ai")
+        if (message.value == 1)
         {
-
-
+            foreach (MovingPlatform mp in m_movingPlatforms)
+            {
+                mp.GoToNextPosition();
+            }
         }
     }
 

@@ -37,7 +37,7 @@ GameObject:
   - 212: {fileID: 212000014108610940}
   - 61: {fileID: 61000011807512218}
   - 50: {fileID: 50000012117556980}
-  - 114: {fileID: 114000011853828394}
+  - 114: {fileID: 114000012649473902}
   m_Layer: 0
   m_Name: Movable Block (2)
   m_TagString: ground
@@ -72,7 +72,7 @@ GameObject:
   - 212: {fileID: 212000010510059376}
   - 61: {fileID: 61000010451383080}
   - 50: {fileID: 50000010530592944}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Terminus
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   - 212: {fileID: 212000014091215750}
   - 61: {fileID: 61000010592023908}
   - 50: {fileID: 50000012320980616}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Terminus2
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010002243992}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -18.871586, y: 0.74, z: -0.78354}
+  m_LocalPosition: {x: -15.87, y: 0.79, z: -0.78354}
   m_LocalScale: {x: 0.697, y: 0.697, z: 0.697}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -147,7 +147,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010097185848}
   m_LocalRotation: {x: -0, y: -0, z: 0.0025071078, w: 0.9999969}
-  m_LocalPosition: {x: 1.33, y: -1.35, z: 1.9261694}
+  m_LocalPosition: {x: 6.11, y: -1.32, z: 1.9261694}
   m_LocalScale: {x: 1.7073168, y: 1.7073168, z: 1.7073174}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -192,7 +192,7 @@ Rigidbody2D:
   m_GameObject: {fileID: 1000010097185848}
   m_UseAutoMass: 1
   m_Mass: 0.5800343
-  m_LinearDrag: 0
+  m_LinearDrag: 1
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_IsKinematic: 0
@@ -259,7 +259,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 0.64, y: 0.64}
---- !u!114 &114000011853828394
+--- !u!114 &114000012649473902
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -267,13 +267,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000010097185848}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6be065801bd6d5478d542cdbe4cad0c, type: 3}
+  m_Script: {fileID: 11500000, guid: 666ceb28271fbba4caf25f6c269d6af4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_leftTerminus: {fileID: 1000012149193356}
   m_rightTerminus: {fileID: 1000013844322638}
-  m_minValue: 0
-  m_maxValue: 800
+  m_minValue: 100
+  m_maxValue: 5000
   m_lerpAmount: 0
   m_anchoredAmount: -1
   m_anchorInterval: 0.01
